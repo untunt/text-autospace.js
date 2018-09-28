@@ -8,8 +8,8 @@
                         open: '[\(\[\{\'"<‘“]',
                         close: '[\)\]\}\'">’”]'
                     },
-                    latin = '[A-Za-z0-9\u00C0-\u00FF\u0100-\u017F\u0180-\u024F\u1E00-\u1EFF]' + '|' + punc.base,
-                    patterns = ['/(' + hanzi + ')(' + latin + '|' + punc.open + ')/ig', '/(' + latin + '|' + punc.close + ')(' + hanzi + ')/ig'];
+                    latin = '[A-Za-z0-9\u00C0-\u00FF\u0100-\u017F\u0180-\u024F\u1E00-\u1EFF]',
+                    patterns = ['/(' + hanzi + ')(' + latin + ')/ig', '/(' + latin + ')(' + hanzi + ')/ig'];
 
                 patterns.forEach(function(exp) {
                         findAndReplaceDOMText(this, {
