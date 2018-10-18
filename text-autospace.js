@@ -2,13 +2,60 @@
 (function(window, $) {
     init = function() {
             $('body').each(function() {
-                var hanzi = '[\u2E80-\u2FFF\u31C0-\u31EF\u3300-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF\uFE30-\uFE4F]',
+				/**
+				 * ==== Hanzi ====
+				 * \u2E80-\u2FFF	CJK Radicals Supplement, Kangxi Radicals, Ideographic Description Characters
+				 * \u31C0-\u31EF	CJK Strokes
+				 * \u3300-\u4DBF	CJK Compatibility, CJK Unified Ideographs Extension A
+				 * \u4E00-\u9FFF	CJK Unified Ideographs
+				 * \uF900-\uFAFF	CJK Compatibility Ideographs
+				 * \uFE30-\uFE4F	CJK Compatibility Forms
+				 *
+				 * \u1100-\u11FF	Hangul Jamo
+				 * \u3040-\u30FF	Hiragana, Katakana
+				 * \u3100-\u312F	Bopomofo
+				 * \u3130-\u318F	Hangul Compatibility Jamo
+				 * \u3190-\u319F	Kanbun
+				 * \u31A0-\u31BF	Bopomofo Extended
+				 * \u31C0-\u31EF	CJK Strokes
+				 * \u31F0-\u31FF	Katakana Phonetic Extensions
+				 * \uA960-\uA97F	Hangul Jamo Extended-A
+				 * \uAC00-\uD7AF	Hangul Syllables, Hangul Jamo Extended-B
+				 * \u1B000-\u1B12F	Kana Supplement, Kana Extended-A
+				 * \u20000-\u2FFFF	CJK Unified Ideographs Extensions, CJK Compatibility Ideographs Supplement
+				 *
+				 * ==== Latin ====
+				 * \u00C0-\u00FF	Latin-1 Supplement: Letters, expect U+00D6 (multiplication sign) and U+00F7 (division sign)
+				 * \u0100-\u017F	Latin Extended-A
+				 * \u0180-\u024F	Latin Extended-B
+				 * \u1E00-\u1EFF	Latin Extended Additional
+				 *
+				 * \u0250-\u036F	IPA Extensions, Spacing Modifier Letters, Combining Diacritical Marks
+				 * \u0370-\u03FF	Greek and Coptic
+				 * \u0400-\u052F	Cyrillic, Cyrillic Supplement
+				 * \u1AB0-\u1AFF	Combining Diacritical Marks Extended
+				 * \u1C80-\u1C8F	Cyrillic Extended-C
+				 * \u1D00-\u1DFF	Phonetic Extensions, Phonetic Extensions Supplement, Combining Diacritical Marks Supplement
+				 * \u1F00-\u1FFF	Greek Extended
+				 * \u2090-\u209F	Superscripts and Subscripts: Letters, plus U+2071 (SUPERSCRIPT LATIN SMALL LETTER I) and U+207F (SUPERSCRIPT LATIN SMALL LETTER N)
+				 * \u2C60-\u2C7F	Latin Extended-C
+				 * \u2C80-\u2CFF	Coptic
+				 * \u2DE0-\u2DFF	Cyrillic Extended-A
+				 * \uA640-\uA69F	Cyrillic Extended-B
+				 * \uA720-\uA7FF	Latin Extended-D
+				 * \uAB30-\uAB6F	Latin Extended-E
+				 * \uFB00-\uFB0F	Alphabetic Presentation Forms: Latin
+				 * \uFE20-\uFE2F	Combining Half Marks
+				 *
+				 * Halfwidth Kana and Hangul, Superscripts and Subscripts Numbers are not included
+				 */
+				var hanzi = '[\u1100-\u11FF\u2E80-\u2FFF\u3040-\u31FF\u3300-\u4DBF\u4E00-\u9FFF\uA960-\uA97F\uAC00-\uD7AF\uF900-\uFAFF\uFE30-\uFE4F]|\uD28C[\uDC00-\uDD2F]|[\uD840-\uD87F][\uDC00-\uDF99]',
                     punc = {
                         base: '[@&=_\,\.\?\!\$\%\^\*\-\+\/]',
                         open: '[\(\[\{\'"<‘“]',
                         close: '[\)\]\}\'">’”]'
                     },
-                    latin = '[A-Za-z0-9\u00C0-\u00FF\u0100-\u017F\u0180-\u024F\u1E00-\u1EFF]',
+                    latin = '[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u052F\u1AB0-\u1AFF\u1C80-\u1C8F\u1D00-\u1FFF\u2071\u207F\u2090-\u209F\u2C60-\u2CFF\u2DE0-\u2DFF\uA640-\uA69F\uA720-\uA7FF\uAB30-\uAB6F\uFB00-\uFB0F\uFE20-\uFE2F]',
                     patterns = ['/(' + hanzi + ')(' + latin + ')/ig', '/(' + latin + ')(' + hanzi + ')/ig'];
 
                 patterns.forEach(function(exp) {
